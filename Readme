@@ -1,0 +1,5 @@
+This is test scope for API and UI testing.
+For it need to be installed playwrite and pytest
+
+API testing provided for site petstore.swagger.io
+UI testing for site https://demoqa.com/text-box
