@@ -3,7 +3,8 @@ For it need to be installed playwrite and pytest
 
 API testing
 API testing provided for site petstore.swagger.io
-In contains 5 tests in it.
+In contains 9 tests in it.
+They should be run one by one (to recieve correct respons on Delete requests).
 
 
 UI test:
