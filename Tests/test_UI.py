@@ -87,7 +87,7 @@ It is expected to last result to be failed!!!
 
 def test_radio_button_clicking (base_url, radio_button_id):
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch(headless=True)
         page = browser.new_page()
         page.goto(f"{base_url}/radio-button")
 

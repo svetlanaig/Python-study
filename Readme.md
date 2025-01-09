@@ -1,14 +1,19 @@
 This is test scope for API and UI testing.
-For it need to be installed playwrite and pytest
+For it need to be installed playwrite, pytest, response, json schema
 
-API testing
+API testing scope:
 API testing provided for site petstore.swagger.io
 In contains 9 tests in it.
 They should be run one by one (to recieve correct respons on Delete requests).
 
 
-UI test:
+UI tests scope:
 UI testing for site https://demoqa.com/text-box
 It contains 5 tests in it
-Some of them open the brouser, some - not
+Some of them open the browser, some - not
 One of cases was intentionally made to be failed (case Test3. This test case click radiobutton 'No' and check it if checked after it)
+
+To run cases: 
+1 - download locally
+2 - run from the folder pytest --html=reports/report.html
+ 
