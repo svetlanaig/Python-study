@@ -1,5 +1,7 @@
 import pytest
 from playwright.sync_api import sync_playwright
+from logger_config import setup_logger
+
 
 """Common settings set up"""
 @pytest.fixture(scope="module")  # define base url
@@ -30,9 +32,6 @@ def test_form_data(base_url):
 
         # Submit the form
         page.click('#submit')
-
-        # Wait for the output data to be displayed after submission
-        # page.wait_for_selector("#output")
 
         # Retrieve data from the output section
         output = {
