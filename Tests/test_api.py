@@ -2,19 +2,25 @@ import requests
 import pytest
 from unittest.mock import Mock
 
+import sys
+sys.path.append('/Users/Svetlana_Ignatova/PycharmProjects/pythonProject/Python-study')
+from logger_config import setup_logger
+logger = setup_logger()
+
 #define base url
 
-@pytest.fixture(scope="module")  
+@pytest.fixture(scope="module")  # define base url
 def base_url():
     return "https://petstore.swagger.io"
 
-#Test 1. authentication 
-
-def test_authentication(base_url):  # test autentification
+# Test 1. Authentication
+def test_authentication(base_url):
+    logger.info("Starting test_authentication")
     response = requests.get(f"{base_url}/oauth/authorize", auth=("test", "abc123"))
     assert response.status_code == 200
+    logger.info("test_authentication passed successfully with status code 200")
 
-#adding parametrize for input data
+# Adding parametrize
 @pytest.mark.parametrize("pet_id, name", [
     (1, "cat1"),  # valid pet_id with name cat1
     (2, "cat2"),  # valid pet_id with name cat2
@@ -22,8 +28,9 @@ def test_authentication(base_url):  # test autentification
     (4, "cat4"),  # valid pet_id with name cat4
 ])
 
-# Test 2. To check adding some pets
+# Test 2. To check put
 def test_put_endpoint(base_url, pet_id, name):
+    logger.info(f"Starting test_put_endpoint with pet_id={pet_id} and name={name}")
     payload = {"id": pet_id, "category": {"id": 4, "name": "mammal"},
                "name": name,
                "photoUrls": ["string"],
@@ -34,6 +41,7 @@ def test_put_endpoint(base_url, pet_id, name):
     response = requests.post(url, json=payload, headers=headers)
     assert response.status_code == 200, f"Failed with status {response.status_code}"
     assert response.json()["name"] == name, "Pet name does not match the request"
+    logger.info(f"test_put_endpoint passed successfully for pet_id={pet_id} with name={name}")
 
 # Test 3. To check adding 1 pet
 

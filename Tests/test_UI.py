@@ -1,8 +1,8 @@
 import pytest
 from playwright.sync_api import sync_playwright
-from logger_config import setup_logger
 
-
+# Создаем экземпляр логгера
+logger = setup_logger()
 """Common settings set up"""
 @pytest.fixture(scope="module")  # define base url
 def base_url():
