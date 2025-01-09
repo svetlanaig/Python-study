@@ -2,7 +2,7 @@ import logging
 
 def setup_logger():
     logger = logging.getLogger('pytest_logger')
-    logger.setLevel(logging.DEBUG)  # Установка уровня логгирования
+    logger.setLevel(logging.DEBUG)
 
     file_handler = logging.FileHandler('test.log')
     file_handler.setLevel(logging.DEBUG)
