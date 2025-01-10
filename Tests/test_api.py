@@ -2,13 +2,15 @@ import requests
 import pytest
 from unittest.mock import Mock
 
+# from ..logger_config import setup_logger
+# logger = setup_logger()
+
 import sys
 sys.path.append('/Users/Svetlana_Ignatova/PycharmProjects/pythonProject/Python-study')
 from logger_config import setup_logger
 logger = setup_logger()
 
-#define base url
-
+# define base url
 @pytest.fixture(scope="module")  # define base url
 def base_url():
     return "https://petstore.swagger.io"
@@ -20,6 +22,7 @@ def test_authentication(base_url):
     assert response.status_code == 200
     logger.info("test_authentication passed successfully with status code 200")
 
+
 # Adding parametrize
 @pytest.mark.parametrize("pet_id, name", [
     (1, "cat1"),  # valid pet_id with name cat1
@@ -27,7 +30,6 @@ def test_authentication(base_url):
     (3, "cat3"),  # valid pet_id with name cat3
     (4, "cat4"),  # valid pet_id with name cat4
 ])
-
 # Test 2. To check put
 def test_put_endpoint(base_url, pet_id, name):
     logger.info(f"Starting test_put_endpoint with pet_id={pet_id} and name={name}")
@@ -43,6 +45,7 @@ def test_put_endpoint(base_url, pet_id, name):
     assert response.json()["name"] == name, "Pet name does not match the request"
     logger.info(f"test_put_endpoint passed successfully for pet_id={pet_id} with name={name}")
 
+
 # Test 3. To check adding 1 pet
 
 def test_put_pet_successful(base_url, mocker):
@@ -51,7 +54,8 @@ def test_put_pet_successful(base_url, mocker):
     response = requests.put(f"{base_url}/v2/pet", json=payload)
     assert response.status_code == 200
     assert response.json()["name"] == "Buddy"
-    
+
+
 # Test 4. To update the pet
 
 def test_post_endpoint(base_url):
@@ -66,19 +70,22 @@ def test_post_endpoint(base_url):
     assert response.status_code == 200
     assert response.json()["name"] == "Kitty2"
 
-# Test 5. Check deleting of existed pet: positive cases. Note: should be run after Test 2 
+
+# Test 5. Check deleting of existed pet: positive cases. Note: should be run after Test 2
 pet_id = 1
+
+
 def test_delete_endpoint(base_url):
     url = f"{base_url}/v2/pet/{pet_id}"
     response = requests.delete(url)
     assert response.status_code == 200
+
 
 # Test 6. Check deleting of existed pet: negative case. Deleting invalid ids
 @pytest.mark.parametrize("incorrect_pet_id", [
     (-1),
     (99999999)
 ])
-
 def test_delete_with_exception_handling(base_url, incorrect_pet_id):
     try:
         url = f"{base_url}/v2/pet/{incorrect_pet_id}"
@@ -97,6 +104,7 @@ def test_get_pet_server_error(base_url, mocker):
     response = requests.get(f"{base_url}/v2/pet/1")
     assert response.status_code == 500, "Expected a 500 server error response"
 
+
 # Test 8. Mock the post request to simulate invalid data scenario
 def test_post_pet_invalid_data(base_url, mocker):
     mocker.patch('requests.post', return_value=Mock(status_code=400, json=lambda: {"message": "Invalid data"}))
@@ -107,7 +115,9 @@ def test_post_pet_invalid_data(base_url, mocker):
 
 
 # Test 9. Simulate a 502 Bad Gateway error on DELETE request
-pet_id=2
+pet_id = 2
+
+
 def test_delete_pet_network_error(base_url, mocker):
     mocker.patch('requests.delete', return_value=Mock(status_code=502))
     url = f"{base_url}/v2/pet/{pet_id}"
