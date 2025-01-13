@@ -2,11 +2,6 @@ import requests
 import pytest
 from unittest.mock import Mock
 
-# from ..logger_config import setup_logger
-# logger = setup_logger()
-
-import sys
-sys.path.append('/Users/Svetlana_Ignatova/PycharmProjects/pythonProject/Python-study')
 from logger_config import setup_logger
 logger = setup_logger()
 
